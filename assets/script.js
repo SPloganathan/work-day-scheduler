@@ -13,7 +13,7 @@ $(function () {
     let hour = timeId.replace("hour-", "");
     //newDate = dayjs().hour(12)
     let elementHour = dayjs().hour(hour);
-    let timeInHour = dayjs().format("h");
+    let timeInHour = dayjs().format("H");
     let currentHour = dayjs().hour(timeInHour);
     //finding difference date1.diff(date2)
     //date1.diff('2018-06-05', 'month')
@@ -27,6 +27,32 @@ $(function () {
     } else {
       $(this).addClass("future");
     }
+    $(this)
+      .children("button")
+      .click(function () {
+        let textInput = $(this).parent().find("textarea").val();
+
+        var myPreviousTask = window.localStorage.getItem("myTask");
+        if (myPreviousTask) {
+          var myPreviousTaskObject = JSON.parse(myPreviousTask);
+          myPreviousTaskObject.push({
+            id: timeId,
+            description: textInput,
+            date: dayjs().format(),
+          });
+          window.localStorage.setItem(
+            "myTask",
+            JSON.stringify(myPreviousTaskObject)
+          );
+        } else {
+          window.localStorage.setItem(
+            "myTask",
+            JSON.stringify([
+              { id: timeId, description: textInput, date: dayjs().format() },
+            ])
+          );
+        }
+      });
   });
   //
   // TODO: Add code to apply the past, present, or future class to each time
