@@ -19,7 +19,6 @@ $(function () {
     //date1.diff('2018-06-05', 'month')
     let difference = elementHour.diff(currentHour, "minutes");
 
-    console.log(difference);
     if (difference === 0) {
       $(this).addClass("present");
     } else if (difference < 0) {
@@ -35,11 +34,18 @@ $(function () {
         var myPreviousTask = window.localStorage.getItem("myTask");
         if (myPreviousTask) {
           var myPreviousTaskObject = JSON.parse(myPreviousTask);
-          myPreviousTaskObject.push({
-            id: timeId,
-            description: textInput,
-            date: dayjs().format(),
-          });
+          var previousDescriptionForId = myPreviousTaskObject.find(
+            (eachObject) => eachObject.id === timeId
+          );
+          if (previousDescriptionForId) {
+            previousDescriptionForId.description = textInput;
+          } else {
+            myPreviousTaskObject.push({
+              id: timeId,
+              description: textInput,
+              date: dayjs().format(),
+            });
+          }
           window.localStorage.setItem(
             "myTask",
             JSON.stringify(myPreviousTaskObject)
