@@ -31,7 +31,10 @@ $(function () {
     if (storageTaskItems) {
       var storageTaskItemsObject = JSON.parse(storageTaskItems);
       let findStorageTask = storageTaskItemsObject.find(
-        (eachObject) => eachObject.id === timeId
+        (eachObject) =>
+          eachObject.id === timeId &&
+          dayjs(eachObject.date).format("YYYY-M-D") ===
+            dayjs().format("YYYY-M-D")
       );
       if (findStorageTask) {
         $(this).find("textarea").val(findStorageTask.description);
