@@ -25,6 +25,6 @@ Created a simple calendar application that allows a user to save the events of t
 
 ## Deployed Screenshot and URL
 
-![alt+text]
+![alt+text](./assets/screenshots/Task-scheduler.png)
 
 ##
